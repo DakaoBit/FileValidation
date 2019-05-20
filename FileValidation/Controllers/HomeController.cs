@@ -30,12 +30,13 @@ namespace FileValidation.Controllers
 
         public ActionResult ImageUpload()
         {
-            var upload = new ImageViewModel();
+            var upload = new NewsViewModel();
             return View(upload);
         }
 
         [HttpPost]
-        public ActionResult ImageUpload(ImageViewModel model)
+        [ValidateInput(false)]
+        public ActionResult ImageUpload(NewsViewModel model)
         {
             if (!ModelState.IsValid)
             {

@@ -1,4 +1,4 @@
-﻿@model FileValidation.ViewModels.ImageViewModel
+﻿@model FileValidation.ViewModels.NewsViewModel
 @{
     ViewBag.Title = "ImageUpload";
 }
@@ -8,12 +8,42 @@
 @using (Html.BeginForm("ImageUpload", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
     <div class="form-group">
-        <label>圖片</label>
-        <input type="file" name="@Html.NameFor(x => x.File)" id="@Html.IdFor(x => x.File)" />
-        @Html.ValidationMessageFor(x => x.File, "", new { @class = "text-danger" })
+        <label class="control-label">Upload Image</label>
+        <input type="file" name="@Html.NameFor(m => m.File)" id="@Html.IdFor(m => m.File)" class="form-control" />
+        @Html.ValidationMessageFor(m => m.File, "", new { @class = "text-danger" })
     </div>
 
+
+
     <div class="form-group">
-        <input type="submit"  value="Submit" />
+        <label class="control-label">Content</label>
+       @Html.TextAreaFor(m => m.Content, new { @id = "editor", @class = "ckeditor" })
+        @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <input type="submit" value="Submit" class="btn btn-success" />
     </div>
 }
+
+<script>
+    //CKEDITOR
+    //固定預設字型
+    CKEDITOR.config.font_style = {
+        element: 'span',
+        styles: { 'font-family': '微軟正黑體' },
+        overrides: [{
+            element: 'font', attributes: { 'face': null }
+        }]
+    };
+
+    CKEDITOR.replace('editor', {
+        height: 300,
+        //uiColor: '#e6e6ff',
+        allowedContent: true,
+        htmlEncodeOutput: true,
+        font_names: 'Arial;Arial Black;Comic Sans MS;Courier New;Tahoma;Times New Roman;Verdana;新細明體;細明體;標楷體;微軟正黑體',
+        filebrowserImageUploadUrl: "@Url.Action("UploadPicture", "Article")",
+    });
+ 
+</script>
