@@ -1,0 +1,19 @@
+﻿@model FileValidation.ViewModels.ImageViewModel
+@{
+    ViewBag.Title = "ImageUpload";
+}
+
+<h2>ImageUpload</h2>
+
+@using (Html.BeginForm("ImageUpload", "Home", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label>圖片</label>
+        <input type="file" name="@Html.NameFor(x => x.File)" id="@Html.IdFor(x => x.File)" />
+        @Html.ValidationMessageFor(x => x.File, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit"  value="Submit" />
+    </div>
+}
